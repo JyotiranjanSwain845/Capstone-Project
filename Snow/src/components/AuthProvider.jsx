@@ -33,17 +33,13 @@ export function AuthProvider({ children }) {
     setIsLogged(Boolean(r.data.authenticated));
   }, []);
 
-  const onDelete = useCallback(async () => {
-    setIsLogged(false);
-
-  },[])
 
   useEffect(() => {
     reload();
   }, [reload]);
 
   return (
-    <AuthContext.Provider value={{ isLogged, checking, login, reload, logout, onDelete }}>
+    <AuthContext.Provider value={{ isLogged, checking, login, reload, logout}}>
       {children}
     </AuthContext.Provider>
   );

@@ -152,4 +152,20 @@ app.get("/api/incidents", async (req, res) => {
   }
 });
 
+app.delete("/api/incidents/:id", async (req, res) => {
+  const sid = req.cookies.sid;
+  const session = tokenStore.get(sid);
+  if (!session.access_token) return res.status(401).send("ohhooo..!!! Not allowed to delete");
+  const incidentId = req.params.id;
+  try {
+    await axios.delete(`${SN_INTANCE}/api/now/table/incident/${incidentId}`, {
+      headers: { Authorization: `Bearer ${session.access_token}` },
+    });
+    res.json({ deleted: `Incident ${incidentId} Deleted successfully..!!` });
+  } catch (e) {
+    res.status(e.response.status || 500).send("SOmething went wrong");
+  }
+
+})
+
 app.listen(3001, () => console.log("BFF on 3001"));

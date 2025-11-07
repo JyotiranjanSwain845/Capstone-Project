@@ -14,6 +14,17 @@ export default function Home() {
   const { isLogged } = useContext(AuthContext);
   const [incidents, setIncidents] = useState([]);
 
+  const onDelete = async (sys_id) => {
+    try {
+      await axios.delete(`http://localhost:3001/api/incidents/${sys_id}`, {
+        withCredentials: true,
+      });
+      setIncidents(incidents.filter((inc) => inc.sys_id !== sys_id));
+    } catch (err) {
+      console.error("couldn't delete:", err.message);
+    }
+  };
+
   useEffect(() => {
     async function fetchData() {
       if (isLogged) {
@@ -28,7 +39,6 @@ export default function Home() {
     fetchData();
   }, [isLogged]);
 
-  const {onDelete} = useContext(AuthContext);
   return (
     <>
       {isLogged && incidents ? (
@@ -65,7 +75,7 @@ export default function Home() {
                           sx={{ mt: 1, mx: 1 }}
                           variant="contained"
                           color="error"
-                          onClick={onDelete}
+                           onClick={() => onDelete(inc.sys_id)}
                         >
                           Delete
                         </Button>
