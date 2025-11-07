@@ -1,0 +1,17 @@
+logs
+node_modules
+dotenv
+dist
+dotenv.local
+dist-ssr
+*.local
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
