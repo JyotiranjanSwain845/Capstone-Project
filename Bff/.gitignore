@@ -1,6 +1,6 @@
 logs
 node_modules
-dotenv
+.env
 dist
 dotenv.local
 dist-ssr
